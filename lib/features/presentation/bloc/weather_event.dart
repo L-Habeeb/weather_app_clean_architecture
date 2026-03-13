@@ -20,3 +20,6 @@ class GetWeatherByLocationEvent extends WeatherEvent {
   @override
   List<Object?> get props => [lat, lon];
 }
+
+
+class GetCurrentLocationEvent extends WeatherEvent {}

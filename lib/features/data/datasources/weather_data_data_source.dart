@@ -50,4 +50,5 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
     }
     throw ServerException();
   }
+
 }

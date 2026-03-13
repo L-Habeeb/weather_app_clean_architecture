@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:location/location.dart';
 
 import '../../domain/entity/weatherdata.dart';
 
@@ -24,4 +25,14 @@ class WeatherError extends WeatherState {
   const WeatherError(this.message);
   @override
   List<Object?> get props => [message];
+}
+
+
+class WeatherLocation extends WeatherState {
+  final LocationData locationData;
+
+  const WeatherLocation({required this.locationData});
+
+  @override
+  List<Object?> get props => [locationData];
 }

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // import '../../data/datasources/weather_local_data_source.dart';
 import '../../data/datasources/weather_local_data_source.dart';
 import '../../injection_container.dart';
+import '../bloc/weather_bloc.dart';
+import '../bloc/weather_event.dart';
+import '../bloc/weather_state.dart';
 import 'location_screen.dart';
 
 class LoadingScreen extends StatefulWidget {
@@ -20,28 +24,27 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void getLocationData() async {
-    final locationData = await sl<WeatherLocalDataSource>()
-        .getCurrentLocation();
-
-    if (!mounted) return;
-    print("LOCATION RECEIVED: $locationData");
-
-    // if (!mounted) return;
-
-    print("NAVIGATINGsswsd");
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => LocationScreen(locationData: locationData),
-      ),
-    );
+    context.read<WeatherBloc>().add(GetCurrentLocationEvent());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
+      body: BlocListener<WeatherBloc, WeatherState>(
+        listener: (context, state) {
+          if (state is WeatherLocation) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) =>
+                    LocationScreen(locationData: state.locationData),
+              ),
+            );
+          } else {
+            Center(child: Text('Error from getting Location'));
+          }
+        },
+        child: const Center(child: CircularProgressIndicator()),
       ),
     );
   }

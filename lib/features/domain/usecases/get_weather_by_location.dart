@@ -26,7 +26,7 @@ class LocationParams extends Equatable {
   final double longitude;
   final double latitude;
 
-  const LocationParams(this.longitude, this.latitude);
+  const LocationParams({required this.latitude, required this.longitude});
 
   @override
   List<Object?> get props => [longitude, latitude];

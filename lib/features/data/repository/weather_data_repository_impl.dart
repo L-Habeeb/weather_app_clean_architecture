@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:location/location.dart';
 
 import 'package:weather_app_clean_architecture/core/failures/failures.dart';
 
@@ -7,11 +8,16 @@ import 'package:weather_app_clean_architecture/features/domain/entity/weatherdat
 import '../../../core/error/exceptions.dart';
 import '../../domain/repository/weather_data_repository.dart';
 import '../datasources/weather_data_data_source.dart';
+import '../datasources/weather_local_data_source.dart';
 
 class WeatherDataRepositoryImpl extends WeatherDataRepository {
   final WeatherRemoteDataSource remoteDataSource;
+  final WeatherLocalDataSourceImpl locationDataSource;
 
-  WeatherDataRepositoryImpl({required this.remoteDataSource});
+  WeatherDataRepositoryImpl({
+    required this.locationDataSource,
+    required this.remoteDataSource,
+  });
 
   @override
   Future<Either<Failure, WeatherData>> getWeatherByCity(
@@ -38,6 +44,16 @@ class WeatherDataRepositoryImpl extends WeatherDataRepository {
       return Right(weatherResult);
     } on ServerException {
       return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, LocationData>> getCurrentLocation() async {
+    try {
+      final currentLocation = await locationDataSource.getCurrentLocation();
+      return Right(currentLocation);
+    } on LocationException {
+      return Left(LocationFailure());
     }
   }
 }
