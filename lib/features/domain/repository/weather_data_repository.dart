@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:location/location.dart';
 
 import '../../../core/failures/failures.dart';
+import '../entity/location_data.dart';
 import '../entity/weatherdata.dart';
 
 abstract class WeatherDataRepository {
@@ -12,6 +12,6 @@ abstract class WeatherDataRepository {
     required double longitude,
   });
 
-  Future<Either<Failure, LocationData>> getCurrentLocation();
+  Future<Either<Failure, LocationEntity>> getCurrentLocation();
 
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:location/location.dart';
+import 'package:weather_app_clean_architecture/features/domain/entity/location_data.dart';
 
 import '../../../core/presentation/constants.dart';
 import '../bloc/weather_bloc.dart';
@@ -9,7 +9,7 @@ import '../bloc/weather_state.dart';
 import 'cityscreen.dart';
 
 class LocationScreen extends StatefulWidget {
-  final LocationData locationData;
+  final LocationEntity locationData;
 
   const LocationScreen({super.key, required this.locationData});
 
@@ -23,8 +23,8 @@ class _LocationScreenState extends State<LocationScreen> {
     super.initState();
     context.read<WeatherBloc>().add(
       GetWeatherByLocationEvent(
-        widget.locationData.latitude!,
-        widget.locationData.longitude!,
+        widget.locationData.latitude,
+        widget.locationData.longitude,
       ),
     );
   }
@@ -59,8 +59,8 @@ class _LocationScreenState extends State<LocationScreen> {
                             onPressed: () async {
                               context.read<WeatherBloc>().add(
                                 GetWeatherByLocationEvent(
-                                  widget.locationData.latitude!,
-                                  widget.locationData.longitude!,
+                                  widget.locationData.latitude,
+                                  widget.locationData.longitude,
                                 ),
                               );
                             },

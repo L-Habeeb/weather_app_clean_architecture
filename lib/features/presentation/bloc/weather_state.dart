@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:location/location.dart';
+import 'package:weather_app_clean_architecture/features/domain/entity/location_data.dart';
 
 import '../../domain/entity/weatherdata.dart';
 
@@ -29,7 +29,7 @@ class WeatherError extends WeatherState {
 
 
 class WeatherLocation extends WeatherState {
-  final LocationData locationData;
+  final LocationEntity locationData;
 
   const WeatherLocation({required this.locationData});
 

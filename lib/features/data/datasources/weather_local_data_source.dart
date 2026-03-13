@@ -1,18 +1,19 @@
 import 'package:location/location.dart';
 
 import '../../../core/error/exceptions.dart';
+import '../../domain/entity/location_data.dart';
 
 abstract class WeatherLocalDataSource {
-  Future<LocationData> getCurrentLocation();
+  Future<LocationEntity> getCurrentLocation();
 }
-
 
 class WeatherLocalDataSourceImpl implements WeatherLocalDataSource {
   final Location location;
+
   WeatherLocalDataSourceImpl(this.location);
 
   @override
-  Future<LocationData> getCurrentLocation() async {
+  Future<LocationEntity> getCurrentLocation() async {
     bool serviceEnabled = await location.serviceEnabled();
     if (!serviceEnabled) {
       serviceEnabled = await location.requestService();
@@ -25,6 +26,11 @@ class WeatherLocalDataSourceImpl implements WeatherLocalDataSource {
       if (permission != PermissionStatus.granted) throw LocationException();
     }
 
-    return await location.getLocation();
+    final locationData = await location.getLocation();
+
+    return LocationEntity(
+      longitude: locationData.longitude!,
+      latitude: locationData.latitude!,
+    );
   }
 }

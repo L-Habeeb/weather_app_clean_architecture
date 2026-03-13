@@ -1,18 +1,18 @@
 import 'package:dartz/dartz.dart';
-import 'package:location/location.dart';
 
 import 'package:weather_app_clean_architecture/core/failures/failures.dart';
 
 import 'package:weather_app_clean_architecture/features/domain/entity/weatherdata.dart';
 
 import '../../../core/error/exceptions.dart';
+import '../../domain/entity/location_data.dart';
 import '../../domain/repository/weather_data_repository.dart';
 import '../datasources/weather_data_data_source.dart';
 import '../datasources/weather_local_data_source.dart';
 
 class WeatherDataRepositoryImpl extends WeatherDataRepository {
   final WeatherRemoteDataSource remoteDataSource;
-  final WeatherLocalDataSourceImpl locationDataSource;
+  final WeatherLocalDataSource locationDataSource;
 
   WeatherDataRepositoryImpl({
     required this.locationDataSource,
@@ -48,7 +48,7 @@ class WeatherDataRepositoryImpl extends WeatherDataRepository {
   }
 
   @override
-  Future<Either<Failure, LocationData>> getCurrentLocation() async {
+  Future<Either<Failure, LocationEntity>> getCurrentLocation() async {
     try {
       final currentLocation = await locationDataSource.getCurrentLocation();
       return Right(currentLocation);

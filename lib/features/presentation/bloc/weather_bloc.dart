@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:location/location.dart';
 import 'package:weather_app_clean_architecture/features/presentation/bloc/weather_event.dart';
 import 'package:weather_app_clean_architecture/features/presentation/bloc/weather_state.dart';
 
@@ -26,7 +25,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     GetCurrentLocationEvent event,
     Emitter<WeatherState> emit,
   ) async {
-    final result = await getCurrentLocation();
+    final result = await getCurrentLocation(NoParams());
     result.fold(
       (failure) =>
           emit(const WeatherError('Failed to fetch weather. Check city name.')),
