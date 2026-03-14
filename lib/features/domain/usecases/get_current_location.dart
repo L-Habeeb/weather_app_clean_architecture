@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
 
 import '../../../core/failures/failures.dart';
 import '../../../core/usecases/usecase.dart';
@@ -17,7 +16,3 @@ class GetCurrentLocation implements UseCase<LocationEntity, NoParams> {
 }
 
 
-class NoParams extends Equatable {
-  @override
-  List<Object?> get props => [];
-}

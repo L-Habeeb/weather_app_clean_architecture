@@ -46,6 +46,28 @@ class _LocationScreenState extends State<LocationScreen> {
             builder: (context, state) {
               if (state is WeatherLoading) {
                 return Center(child: CircularProgressIndicator());
+              } else if (state is WeatherError) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.wifi_off, size: 60.0),
+                      SizedBox(height: 16),
+                      Text(state.message, textAlign: TextAlign.center),
+                      SizedBox(height: 20),
+                      ElevatedButton.icon(
+                        onPressed: () => context.read<WeatherBloc>().add(
+                          GetWeatherByLocationEvent(
+                            widget.locationData.latitude,
+                            widget.locationData.longitude,
+                          ),
+                        ),
+                        icon: Icon(Icons.refresh),
+                        label: Text('Retry'),
+                      ),
+                    ],
+                  ),
+                );
               } else if (state is WeatherLoaded) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:weather_app_clean_architecture/features/presentation/bloc/weather_event.dart';
 import 'package:weather_app_clean_architecture/features/presentation/bloc/weather_state.dart';
 
+import '../../../core/usecases/usecase.dart';
 import '../../domain/usecases/get_current_location.dart';
 import '../../domain/usecases/get_weather_by_city.dart';
 import '../../domain/usecases/get_weather_by_location.dart';
